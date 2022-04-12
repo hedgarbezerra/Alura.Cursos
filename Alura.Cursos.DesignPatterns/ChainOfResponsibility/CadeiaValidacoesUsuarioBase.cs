@@ -68,7 +68,7 @@ namespace Alura.Cursos.DesignPatterns.ChainOfResponsibility
         {
             bool result = usuario.DataNascimento > DateTime.MinValue &&
                 usuario.DataNascimento < DateTime.MaxValue &&
-                (usuario.DataNascimento.Year - DateTime.Today.Year) > 18;
+                (DateTime.Today.Year - usuario.DataNascimento.Year) > 18;
             string resultText = result ? "Aprovado" : "Rejeitado";
             Console.WriteLine($"Ao Validar a data de nascimento o resultado foi: {resultText}");
 
