@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Alura.Cursos.DesignPatterns.ChainOfResponsibility.Clean;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -29,6 +30,13 @@ namespace Alura.Cursos.DesignPatterns.ChainOfResponsibility
             _validadorSenha.DefinirProximo(_validadorDataNascimento);
 
             return _validadorBase.Lidar(usuario);
+        }
+
+        public bool Validar2(Usuario usuario)
+        {
+            var validadorEncadeado = new CadeiaMultiplaValidadores(new ValidacaoUsuarioClean(), new ValidacaoNomeUsuarioClean());
+
+            return validadorEncadeado.Lidar(usuario);
         }
     }
 }
