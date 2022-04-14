@@ -43,6 +43,9 @@ namespace Alura.Cursos.DesignPatterns.ChainOfResponsibility.Formatadores
         string Lidar(Requisicao req, Conta conta);
         void DefinirProximo(ICadeiaResposta proximo);
     }
+    /// <summary>
+    /// A classe faz uso de template method pattern ao utilizar representações abstratas para Lidar com as respsotas usando fluxo recorrente(repetido)
+    /// </summary>
     abstract class CadeiaRespostaBase : ICadeiaResposta
     {
         protected ICadeiaResposta Proximo { get; private set; }
