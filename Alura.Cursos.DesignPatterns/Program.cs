@@ -10,26 +10,23 @@ namespace Alura.Cursos.DesignPatterns
     {
         static void Main(string[] args)
         {
-            var calculador = new CalculadorImpostos();
-            var impostos = new ImpostoIKCV(new ImpostoICPP(new ImpostoHigh()));
-            var orcamento = new Orcamento()
+            var contas = new List<Conta>()
             {
-                Itens = new List<Item>()
-                {
-                    new Item("PC", 500),
-                    new Item("PC", 600),
-                    new Item("lapis", 10),
-                    new Item("caneta", 10),
-                    new Item("Xbox", 1000)
-                }
+                new Conta("Fulano1", 300, string.Empty, 1, DateTime.Now.AddMonths(-3)),
+                new Conta("Fulano2", 300, string.Empty, 2, DateTime.Now),
+                new Conta("Fulano3", 900, string.Empty, 3, DateTime.Now),
+                new Conta("Fulano4", 300, string.Empty, 4, DateTime.Now),
+                new Conta("Fulano5", 100, string.Empty, 5, DateTime.Now)
             };
 
+            var filtrar = new FiltragemContasFlagadas();
+            var contasFlagadas = filtrar.ContasFlagadas(contas);
+            foreach (var conta in contasFlagadas)
+            {
+                Console.WriteLine(conta.ToString());
+            }   
 
-            Console.WriteLine(calculador.Calcular(orcamento, impostos));
-            Console.WriteLine(calculador.Calcular(orcamento, new ImpostoIKCV()));
-            Console.WriteLine(calculador.Calcular(orcamento, new ImpostoICPP()));
-            Console.WriteLine(calculador.Calcular(orcamento, new ImpostoHigh()));
-            Console.ReadLine();
+            Console.ReadKey();
         }
     }
 }
