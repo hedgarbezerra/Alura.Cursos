@@ -8,6 +8,15 @@ namespace Alura.Cursos.DesignPatterns.TemplateMethod
 {
     class Banco
     {
+        public Banco()  { }
+        public Banco(string nome, string endereco, string telefone, string email)
+        {
+            Nome = nome;
+            Endereco = endereco;
+            Telefone = telefone;
+            Email = email;
+        }
+
         public string Nome { get; set; }
         public string Endereco { get; set; }
         public string Telefone { get; set; }
@@ -47,9 +56,13 @@ namespace Alura.Cursos.DesignPatterns.TemplateMethod
         protected abstract void GerarConteudo(Banco b);
         private void MostrarConteudo()
         {
+            Console.WriteLine("\n ----------- INICIO ---------------");
             Console.WriteLine(Cabecalho);
+            Console.WriteLine("\n ----------- X ---------------");
             Console.WriteLine(Corpo);
+            Console.WriteLine("\n ----------- X ---------------");
             Console.WriteLine(Rodape);
+            Console.WriteLine("\n ----------- FIM --------------- \n");
         }
     }
 
@@ -59,7 +72,7 @@ namespace Alura.Cursos.DesignPatterns.TemplateMethod
         {
             Cabecalho = $"{b.Nome} - {b.Telefone}";
             Rodape = $"{b.Nome} - {b.Telefone}";
-            Corpo = string.Join(",", b.Contas.Select(c => $"Titular: {c.Titular} - {c.Saldo} \n"));
+            Corpo = string.Join("\n", b.Contas.Select(c => $"Titular: {c.Titular} - R$ {c.Saldo}"));
         }
     }
 
@@ -69,7 +82,7 @@ namespace Alura.Cursos.DesignPatterns.TemplateMethod
         {
             Cabecalho = $"{b.Nome} em {b.Endereco} - {b.Telefone}";
             Rodape = $"{b.Email} - {DateTime.Now.ToString("dd/MM/yyyy")}";
-            Corpo = string.Join(",", b.Contas.Select(c => $"Conta: {c.Numero} - Titular: {c.Titular} - AG: {c.Agencia} {c.Saldo}  \n"));
+            Corpo = string.Join("\n", b.Contas.Select(c => $"Conta: {c.Numero} - Titular: {c.Titular} - AG: {c.Agencia} R$ {c.Saldo}"));
         }
     }
 
