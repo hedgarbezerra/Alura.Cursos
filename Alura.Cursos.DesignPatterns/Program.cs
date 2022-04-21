@@ -1,4 +1,5 @@
 ﻿using Alura.Cursos.DesignPatterns.Builder;
+using Alura.Cursos.DesignPatterns.Observer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,8 +14,16 @@ namespace Alura.Cursos.DesignPatterns
             var builder = new NotaFiscalBuilder();
             var itemBuilder = new ItemBuilder();
 
-            var nf = builder.Build();
-            builder.Reset();
+            builder.AdicionaAcao(new EnviadorDeEmail());
+            builder.AdicionaAcao(new NotaFiscalDao());
+            builder.AdicionaAcao(new EnviadorDeSms());
+            builder.AdicionaAcao(new Impressora());
+            builder.AdicionaAcao(new Multiplicador(3));
+
+            var itemConstruido = itemBuilder.Como("Xiaomi MI9 2019")
+                .ComPreco(90)
+                .Build();
+
             var nf2 = builder.ComRazaoSocial("Empresa")
                 .ComCNPJ("cnpjftop")
                 .ComDataEmissao()
@@ -23,9 +32,6 @@ namespace Alura.Cursos.DesignPatterns
                 .ComoCliente(null)
                 .Build();
 
-            var itemConstruido = itemBuilder.Como("Xiaomi MI9 2019")
-                .ComPreco(90)
-                .Build();
             var nf3 = builder.ComRazaoSocial("Empresa 2")
                 .ComCNPJ("cnpjftop2")
                 .ComDataEmissao(new DateTime(2022, 10,19))

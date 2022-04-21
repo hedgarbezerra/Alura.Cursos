@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Alura.Cursos.DesignPatterns.Observer;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -53,12 +54,19 @@ namespace Alura.Cursos.DesignPatterns.Builder
         , INotaFiscalObservacoesBuilder, INotaFiscalRazaoSocialBuilder
     {
         private NotaFiscal _nota;
+        private IList<AcaoAposGerarNota> _todasAcoesASeremExecutadas = new List<AcaoAposGerarNota>();
+        public void AdicionaAcao(AcaoAposGerarNota novaAcao) => _todasAcoesASeremExecutadas.Add(novaAcao);
+
         public NotaFiscalBuilder()
         {
             _nota = new NotaFiscal();
         }
 
-        public NotaFiscal Build() => _nota;
+        public NotaFiscal Build()
+        {
+            _todasAcoesASeremExecutadas.ToList().ForEach(a => a.Executa(_nota));
+            return _nota;
+        } 
 
         public INotaFiscalCNPJBuilder ComRazaoSocial(string razaoSocial)
         {
