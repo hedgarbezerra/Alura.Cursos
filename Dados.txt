@@ -1,0 +1,3 @@
+Cavalo/Mato
+ConnectionString/Data Source=HED-GAMING;Initial Catalog=NETCoreAPIDb;Integrated Security=True
+Bu/Xu

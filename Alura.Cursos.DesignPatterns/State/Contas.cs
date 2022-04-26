@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Alura.Cursos.DesignPatterns.State
 {
-    class Conta
+   public class Conta
     {
         public Conta() { }
         public Conta(string titular, double saldo)
@@ -40,14 +40,14 @@ namespace Alura.Cursos.DesignPatterns.State
         }
     }
 
-    interface IEstadoConta
+     public interface IEstadoConta
     {
         public string Nome { get; }
         void Saca(Conta conta, double valor);
         void Deposita(Conta conta, double valor);
     }
 
-    class EstadoContaPositiva : IEstadoConta
+    public class EstadoContaPositiva : IEstadoConta
     {
         public string Nome => "Positiva";
 
@@ -64,7 +64,7 @@ namespace Alura.Cursos.DesignPatterns.State
             conta.Saldo += valor * 0.98;
         }
     }
-    class EstadoContaNegativa : IEstadoConta
+    public class EstadoContaNegativa : IEstadoConta
     {
         public string Nome => "Negativa";
 
