@@ -1,8 +1,10 @@
 ﻿using Alura.Cursos.DesignPatterns.Builder;
+using Alura.Cursos.DesignPatterns.Interpreter;
 using Alura.Cursos.DesignPatterns.Observer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Xml.Linq;
 
 namespace Alura.Cursos.DesignPatterns
@@ -11,38 +13,14 @@ namespace Alura.Cursos.DesignPatterns
     {
         static void Main(string[] args)
         {
-            var builder = new NotaFiscalBuilder();
-            var itemBuilder = new ItemBuilder();
+            IExpressao expressao = new Subtracao(new ExpressaoNumerica(2), new Multiplicacao(new ExpressaoNumerica(5), new ExpressaoNumerica(2)));
+            var resultado = expressao.Avaliar();
+            Console.WriteLine(resultado);
 
-            builder.AdicionaAcao(new EnviadorDeEmail());
-            builder.AdicionaAcao(new NotaFiscalDao());
-            builder.AdicionaAcao(new EnviadorDeSms());
-            builder.AdicionaAcao(new Impressora());
-            builder.AdicionaAcao(new Multiplicador(3));
+            //Padrão Interpreter default do .NET
 
-            var itemConstruido = itemBuilder.Como("Xiaomi MI9 2019")
-                .ComPreco(90)
-                .Build();
-
-            var nf2 = builder.ComRazaoSocial("Empresa")
-                .ComCNPJ("cnpjftop")
-                .ComDataEmissao()
-                .ComTotalImpostos(9)
-                .ComObservacoes("valores nocivos")
-                .ComoCliente(null)
-                .Build();
-
-            var nf3 = builder.ComRazaoSocial("Empresa 2")
-                .ComCNPJ("cnpjftop2")
-                .ComDataEmissao(new DateTime(2022, 10,19))
-                .ComTotalImpostos(552.4)
-                .ComObservacoes("valores elevadores")
-                .ComoCliente(new Cliente("cliente", "cpf123", "SP", true))
-                .ComItem(new Item("Xbox", 43.1))
-                .ComItem(new Item("PC Gamer", 94.1))
-                .ComItem(new Item("TV LG", 891.3))
-                .ComItem(itemConstruido)
-                .Build();
+            Expression<Func<double, double, double>> expression = (num1, num2) => num1 + num2;
+            Console.WriteLine(expression.Compile().Invoke(1, 65));
 
             Console.ReadKey();
         }

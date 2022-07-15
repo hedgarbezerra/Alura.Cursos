@@ -9,4 +9,12 @@
     <PackageReference Include="System.Data.SqlClient" Version="4.8.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Bridge\" />
+    <Folder Include="Command\" />
+    <Folder Include="Adapter\" />
+    <Folder Include="Facade\" />
+    <Folder Include="Visitor\" />
+  </ItemGroup>
+
 </Project>
