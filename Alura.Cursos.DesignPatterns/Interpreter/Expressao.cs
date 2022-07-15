@@ -11,11 +11,11 @@ namespace Alura.Cursos.DesignPatterns.Interpreter
     {
         double Avaliar();
     }
-    public abstract class ExpressaoBasica : IExpressao
+    public abstract class ExpressaoComposta : IExpressao
     {
-        protected IExpressao ExpressaoEsquerda { get; set; }
-        protected IExpressao ExpressaoDireita { get; set; }
-        protected ExpressaoBasica(IExpressao expressaoEsquerda, IExpressao expressaoDireita)
+        protected IExpressao ExpressaoEsquerda { get; private set; }
+        protected IExpressao ExpressaoDireita { get; private set; }
+        protected ExpressaoComposta(IExpressao expressaoEsquerda, IExpressao expressaoDireita)
         {
             ExpressaoEsquerda = expressaoEsquerda;
             ExpressaoDireita = expressaoDireita;
@@ -23,17 +23,17 @@ namespace Alura.Cursos.DesignPatterns.Interpreter
 
         public abstract double Avaliar();
     }
-    public class ExpressaoNumerica : IExpressao
+    public abstract class ExpressaoBasica : IExpressao
     {
-        private readonly double _numero;
-
-        public ExpressaoNumerica(double numero)
+        protected double Numero { get; private set; }
+        protected ExpressaoBasica(double numero)
         {
-            _numero = numero;
+            Numero = numero;
         }
-        public double Avaliar() => _numero;
+
+        public abstract double Avaliar();
     }
-    public class Soma : ExpressaoBasica
+    public class Soma : ExpressaoComposta
     {
         public Soma(IExpressao expressaoEsquerda, IExpressao expressaoDireita) : base(expressaoEsquerda, expressaoDireita)
         {
@@ -44,7 +44,7 @@ namespace Alura.Cursos.DesignPatterns.Interpreter
         }
     }
 
-    public class Subtracao : ExpressaoBasica
+    public class Subtracao : ExpressaoComposta
     {
         public Subtracao(IExpressao expressaoEsquerda, IExpressao expressaoDireita) : base(expressaoEsquerda, expressaoDireita)
         {
@@ -54,7 +54,7 @@ namespace Alura.Cursos.DesignPatterns.Interpreter
             return ExpressaoEsquerda.Avaliar() - ExpressaoDireita.Avaliar();
         }
     }
-    public class Multiplicacao : ExpressaoBasica
+    public class Multiplicacao : ExpressaoComposta
     {
         public Multiplicacao(IExpressao expressaoEsquerda, IExpressao expressaoDireita) : base(expressaoEsquerda, expressaoDireita)
         {
@@ -64,7 +64,7 @@ namespace Alura.Cursos.DesignPatterns.Interpreter
             return ExpressaoEsquerda.Avaliar() * ExpressaoDireita.Avaliar();
         }
     }
-    public class Divisao : ExpressaoBasica
+    public class Divisao : ExpressaoComposta
     {
         public Divisao(IExpressao expressaoEsquerda, IExpressao expressaoDireita) : base(expressaoEsquerda, expressaoDireita)
         {
@@ -72,6 +72,23 @@ namespace Alura.Cursos.DesignPatterns.Interpreter
         public override double Avaliar()
         {
             return ExpressaoEsquerda.Avaliar() / ExpressaoDireita.Avaliar();
+        }
+    }
+    public class ExpressaoNumerica : ExpressaoBasica
+    {
+        public ExpressaoNumerica(double numero) : base(numero)
+        {
+        }
+        public override double Avaliar() => Numero;
+    }
+    public class RaizQuadrada : ExpressaoComposta
+    {
+        public RaizQuadrada(IExpressao expressaoEsquerda, IExpressao expressaoDireita) : base(expressaoEsquerda, expressaoDireita)
+        {
+        }
+        public override double Avaliar()
+        {
+            return Math.Sqrt(ExpressaoEsquerda.Avaliar() / ExpressaoDireita.Avaliar());
         }
     }
 }
