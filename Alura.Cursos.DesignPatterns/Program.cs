@@ -22,6 +22,8 @@ namespace Alura.Cursos.DesignPatterns
             Expression<Func<double, double, double>> expression = (num1, num2) => num1 + num2;
             Console.WriteLine(expression.Compile().Invoke(1, 65));
 
+            Console.WriteLine(expressao.Converter());
+
             Console.ReadKey();
         }
     }

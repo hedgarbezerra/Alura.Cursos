@@ -14,7 +14,6 @@
     <Folder Include="Command\" />
     <Folder Include="Adapter\" />
     <Folder Include="Facade\" />
-    <Folder Include="Visitor\" />
   </ItemGroup>
 
 </Project>
