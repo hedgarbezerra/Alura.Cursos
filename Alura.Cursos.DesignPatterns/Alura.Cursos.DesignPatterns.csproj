@@ -10,8 +10,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Command\" />
-    <Folder Include="Adapter\" />
     <Folder Include="Facade\" />
   </ItemGroup>
 
