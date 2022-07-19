@@ -1,6 +1,4 @@
-﻿using Alura.Cursos.DesignPatterns.Builder;
-using Alura.Cursos.DesignPatterns.Interpreter;
-using Alura.Cursos.DesignPatterns.Observer;
+﻿using Alura.Cursos.DesignPatterns.Bridge;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,16 +11,18 @@ namespace Alura.Cursos.DesignPatterns
     {
         static void Main(string[] args)
         {
-            IExpressao expressao = new Subtracao(new ExpressaoNumerica(2), new Multiplicacao(new ExpressaoNumerica(5), new ExpressaoNumerica(2)));
-            var resultado = expressao.Avaliar();
-            Console.WriteLine(resultado);
+            IMensagem msg = new Sms()
+            {
+                Formatador = new FormatadorSms(),
+                Mensagem = "Mensagem",
+                Remetente = "Carlos",
+                Destinario = "11993912732"
+            };
 
-            //Padrão Interpreter default do .NET
-
-            Expression<Func<double, double, double>> expression = (num1, num2) => num1 + num2;
-            Console.WriteLine(expression.Compile().Invoke(1, 65));
-
-            Console.WriteLine(expressao.Converter());
+            var enviadorSms = new EnviadorSms();
+            var enviadorEmail = new EnviadorEmail();
+            enviadorSms.Enviar(msg);
+            enviadorEmail.Enviar(msg);
 
             Console.ReadKey();
         }
